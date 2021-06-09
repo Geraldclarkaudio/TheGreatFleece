@@ -37,9 +37,6 @@ public class Player : MonoBehaviour
                 //handle.destination = hit info point.. 
                 _agent.SetDestination(hitInfo.point);
 
-
-                //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //cube.transform.position = hitInfo.point;
             }
         }
 
