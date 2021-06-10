@@ -5,21 +5,21 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-
-    //create a variable to hold nav mesh agent
     private NavMeshAgent _agent;
 
-    // Start is called before the first frame update
+    private Animator _anim;
+
+    private Vector3 _target;
+
     void Start()
     {
-        //assign the handle to navmesh agent component
         _agent = GetComponent<NavMeshAgent>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if left click
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -37,8 +37,20 @@ public class Player : MonoBehaviour
                 //handle.destination = hit info point.. 
                 _agent.SetDestination(hitInfo.point);
 
+                //setbool walk to true
+                _anim.SetBool("Walk", true);
+                _target = hitInfo.point;
             }
         }
+
+        float distance = Vector3.Distance(transform.position, _target);
+
+        if(distance < 1.0f)
+        {
+            _anim.SetBool("Walk", false);
+        }
+
+        //if distance < 1 unit from destination stop the animation. 
 
         //create an object at floor position .. 
 
