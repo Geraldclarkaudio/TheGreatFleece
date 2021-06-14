@@ -10,7 +10,9 @@ public class GuardAI : MonoBehaviour
 
     private NavMeshAgent _agent;
 
-
+    private bool reverse;
+    private bool targetReached;
+    private Animator _anim;
     [SerializeField]
     private int currentTarget;
 
@@ -18,6 +20,7 @@ public class GuardAI : MonoBehaviour
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,13 +29,90 @@ public class GuardAI : MonoBehaviour
         if(wayPoints.Count > 0 && wayPoints[currentTarget] != null)
         {
             _agent.SetDestination(wayPoints[currentTarget].position);
+        
 
             float distance = Vector3.Distance(transform.position, wayPoints[currentTarget].position);
 
-            if(distance < 1.0f)
+            if(distance < 1.0f && (currentTarget == 0 || currentTarget == wayPoints.Count - 1))
             {
-                currentTarget++;
+                _anim.SetBool("Walk", false);
+            }
+            else
+            {
+                _anim.SetBool("Walk", true);
+            }
+
+            if(distance < 1.0f && targetReached == false)
+            {
+                if (currentTarget == 0 || currentTarget == wayPoints.Count - 1)
+                {
+                    targetReached = true;
+                    Debug.Log("Target Reached: " + targetReached);
+
+                    StartCoroutine(WaitBeforeMoving());
+                }
+                else
+                {
+                    if(reverse == true)
+                    {
+                        currentTarget--;
+                        if(currentTarget <= 0)
+                        {
+                            reverse = false;
+                            currentTarget = 0;
+                        }
+                    }
+                    else
+                    {
+                        currentTarget++;
+                    }
+                }                          
             }
         }
     }
+
+    IEnumerator WaitBeforeMoving()
+    {
+
+        if (currentTarget == 0)
+        {
+           // _anim.SetBool("Walk", false);
+            yield return new WaitForSeconds(2.0f);
+        }
+        else if (currentTarget == wayPoints.Count - 1)
+        {
+            //_anim.SetBool("Walk", false);
+            yield return new WaitForSeconds(2.0f);
+        }
+        else
+        {
+            yield return null;
+        }
+
+            if(reverse == true)
+            {
+                currentTarget--;
+
+                if (currentTarget == 0)
+                {
+                    reverse = false;
+                    currentTarget = 0;
+                }
+            }
+            else if(reverse == false)
+            {
+                currentTarget++;
+
+                if (currentTarget == wayPoints.Count)
+                {
+                    reverse = true;
+                    currentTarget--;
+                }
+            }
+
+           targetReached = false;
+             
+    }
+        
+
 }
