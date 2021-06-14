@@ -35,16 +35,22 @@ public class GuardAI : MonoBehaviour
 
             if(distance < 1.0f && (currentTarget == 0 || currentTarget == wayPoints.Count - 1))
             {
-                _anim.SetBool("Walk", false);
+                if(_anim != null)
+                {
+                    _anim.SetBool("Walk", false);
+                }
             }
             else
             {
-                _anim.SetBool("Walk", true);
+                if (_anim != null)
+                {
+                    _anim.SetBool("Walk", true);
+                }
             }
 
             if(distance < 1.0f && targetReached == false)
             {
-                if (currentTarget == 0 || currentTarget == wayPoints.Count - 1)
+                if ((currentTarget == 0 || currentTarget == wayPoints.Count - 1) && wayPoints.Count > 1)
                 {
                     targetReached = true;
                     Debug.Log("Target Reached: " + targetReached);
@@ -53,19 +59,23 @@ public class GuardAI : MonoBehaviour
                 }
                 else
                 {
-                    if(reverse == true)
+                    if(wayPoints.Count > 1)
                     {
-                        currentTarget--;
-                        if(currentTarget <= 0)
+                        if (reverse == true)
                         {
-                            reverse = false;
-                            currentTarget = 0;
+                            currentTarget--;
+                            if (currentTarget <= 0)
+                            {
+                                reverse = false;
+                                currentTarget = 0;
+                            }
+                        }
+                        else
+                        {
+                            currentTarget++;
                         }
                     }
-                    else
-                    {
-                        currentTarget++;
-                    }
+                    
                 }                          
             }
         }
