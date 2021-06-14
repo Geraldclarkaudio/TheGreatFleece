@@ -86,12 +86,10 @@ public class GuardAI : MonoBehaviour
 
         if (currentTarget == 0)
         {
-           // _anim.SetBool("Walk", false);
             yield return new WaitForSeconds(2.0f);
         }
         else if (currentTarget == wayPoints.Count - 1)
         {
-            //_anim.SetBool("Walk", false);
             yield return new WaitForSeconds(2.0f);
         }
         else
