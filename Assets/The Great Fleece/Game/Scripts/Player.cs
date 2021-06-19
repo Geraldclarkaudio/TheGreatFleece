@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
 
     private Vector3 _target;
 
+    [SerializeField]
+    private GameObject coinPrefab;
+    [SerializeField]
+    private AudioClip coinDrop;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -45,14 +49,23 @@ public class Player : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, _target);
 
-        if(distance < 1.0f)
+        if (distance < 1.0f)
         {
             _anim.SetBool("Walk", false);
         }
 
-        //if distance < 1 unit from destination stop the animation. 
+        if(Input.GetMouseButtonDown(1))
+        {
+            Ray rayOrigin1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo1;
 
-        //create an object at floor position .. 
+            if(Physics.Raycast(rayOrigin1, out hitInfo1))
+            {
+                Debug.Log("Right clicked at: " + hitInfo1.point);
+                Instantiate(coinPrefab, hitInfo1.point, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(coinDrop, hitInfo1.point);
+            }
+        }
 
 
     }
