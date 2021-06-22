@@ -10,7 +10,6 @@ public class SecurityCamera : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Hit Darren");
             gameOverSequence.SetActive(true);
         }
     }

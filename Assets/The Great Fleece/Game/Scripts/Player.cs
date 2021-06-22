@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, _target);
 
-        if (distance < 1.0f)
+        if (distance < 2.1f) // Stop distance on NavMesh is 2. 
         {
             _anim.SetBool("Walk", false);
         }
