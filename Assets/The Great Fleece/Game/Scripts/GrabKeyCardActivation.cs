@@ -12,15 +12,10 @@ public class GrabKeyCardActivation : MonoBehaviour
         if (other.tag == "Player")
         {
             keyCardCutscene.SetActive(true);
-            StartCoroutine(DestroyCollider());
+
+            Destroy(this.gameObject, 6f);
 
             GameManager.Instance.hasCard = true; 
         }
-    }
-
-    IEnumerator DestroyCollider()
-    {
-        yield return new WaitForSeconds(1f);
-        Destroy(this.gameObject);
     }
 }

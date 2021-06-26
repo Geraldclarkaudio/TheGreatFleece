@@ -7,16 +7,23 @@ public class WinGameScript : MonoBehaviour
     public GameObject winCutScene;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "player")
+        if(other.tag == "Player")
         {
-            if(GameManager.Instance.hasCard == true)
+            if (GameManager.Instance.hasCard == true)
             {
                 winCutScene.SetActive(true);
+                Debug.Log("Why isnt there a cutscene?");
+
             }
             else
             {
-                Debug.Log("Get the Key Card!");
+                Debug.Log("Go get the keycard!");
+
+                //play audio?
+
             }
         }
+            
+        
     }
 }
