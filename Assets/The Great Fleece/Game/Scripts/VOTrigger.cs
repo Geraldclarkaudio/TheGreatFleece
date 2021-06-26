@@ -11,8 +11,9 @@ public class VOTrigger : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Should be playing audio");
-            AudioSource.PlayClipAtPoint(voiceOverLine, Camera.main.transform.position);
+            AudioManager.Instance.PlayVOiceOver(voiceOverLine);
+
+            //AudioSource.PlayClipAtPoint(voiceOverLine, Camera.main.transform.position);
            
         }
     }
