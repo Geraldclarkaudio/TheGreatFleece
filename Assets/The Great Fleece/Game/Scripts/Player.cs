@@ -18,11 +18,17 @@ public class Player : MonoBehaviour
 
     private bool hasThrownCoin = false;
 
+    [SerializeField]
+    private AudioSource audioSource;
+  
+
 
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         _anim = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -93,5 +99,11 @@ public class Player : MonoBehaviour
             }
 
         }
+
+       
+    }
+    public void PlayFootStepSound()
+    {
+        audioSource.Play();
     }
 }

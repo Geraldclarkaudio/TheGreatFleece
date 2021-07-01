@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource voiceOver;
     public AudioSource music;
+    public AudioSource rain;
 
 
     private void Awake()
@@ -40,5 +41,10 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic()
     {
         music.Play();
+    }
+
+    public void PlayRainClip()
+    {
+        rain.Play();
     }
 }
